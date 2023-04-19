@@ -5,13 +5,9 @@
             {ol}
         </ol>
         {articleTag}
-        <li>
-            <a href="/create/">create</a>
-            <form action="/delete/" method="post">
-                <input type="hidden" value="id">
-                <input type="submit" value="delete">
-            </form>
-        </li>
+        <ol>
+            <li><a href="/create/">create</a></li>
+            {deleteUI}
     </body>
 </html>
     
