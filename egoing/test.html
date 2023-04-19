@@ -1,13 +1,7 @@
-<html>
-    <body>
-        <h1>Django</h1>
-        <ol>
-            {ol}
-        </ol>
-        {articleTag}
-        <ol>
-            <li><a href="/create/">create</a></li>
-            {deleteUI}
-    </body>
-</html>
-    
+<li>
+    <form action="/delete/" method="post">
+        <input type="hidden" name="id" value={id}>
+        <input type="submit" value="delete">
+    </form>
+</li>
+<li><a href="/update/{id}">update</a></li>

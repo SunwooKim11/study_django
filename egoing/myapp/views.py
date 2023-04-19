@@ -14,15 +14,16 @@ def HTMLTemplate(articleTag, id=None):
     ol = ""
     for topic in topics:
         ol += f'<li><a href="/read/{topic["id"]}">{topic["title"]}</a></li>'
-    deleteUI = ''
+    contextUI = ''
     if id!=None:
-            deleteUI = f"""
-                        <li>
+            contextUI = f"""
+                    <li>
                     <form action="/delete/" method="post">
                         <input type="hidden" name="id" value={id}>
                         <input type="submit" value="delete">
                     </form>
                     </li>
+                    <li><a href="/update/{id}">update</a></li>
             """
     
     htmltext = f"""
@@ -35,7 +36,7 @@ def HTMLTemplate(articleTag, id=None):
             {articleTag}
             <ul>
                 <li><a href="/create/">create</a></li>
-                {deleteUI}
+                {contextUI}
             </ul>
         </body>
     </html>
@@ -94,4 +95,31 @@ def delete(request):
                 newTopics.append(topic)
         topics = newTopics
     return redirect("/")
-        
+
+@csrf_exempt        
+def update(request, id):
+    global topics
+    tmp = {}
+    if request.method == 'GET':
+        for topic in topics:
+            if topic['id'] == int(id):
+                tmp = topic
+                break
+        print(tmp)
+        article = f"""
+            <form action="/update/{id}/" method="post">
+            <p><input type="text" name="title" placeholder="title" value={tmp['title']}></p>
+            <p><textarea name="body" placeholder="body" >{tmp['body']}</textarea></p>
+            <p><input type="submit"></p>
+        </form>
+    """
+        return HttpResponse(HTMLTemplate(article, id))
+    elif request.method =='POST':
+        for topic in topics:
+            if topic['id'] == int(id):
+                topic['title'] = request.POST['title']
+                topic['body'] = request.POST['body']
+                break
+        return redirect("/read/"+str(id))
+
+
