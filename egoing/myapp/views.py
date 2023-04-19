@@ -9,22 +9,35 @@ topics =[
     {'id':3, 'title':'Model', 'body':'Model is..'},
 ]
 newId = 3
-def HTMLTemplate(articleTag):
+def HTMLTemplate(articleTag, id=None):
     global topics
     ol = ""
     for topic in topics:
         ol += f'<li><a href="/read/{topic["id"]}">{topic["title"]}</a></li>'
-
+    deleteUI = ''
+    if id!=None:
+            deleteUI = f"""
+                        <li>
+                    <form action="/delete/" method="post">
+                        <input type="hidden" name="id" value={id}>
+                        <input type="submit" value="delete">
+                    </form>
+                    </li>
+            """
+    
     htmltext = f"""
     <html>
-    <body>
-        <h1>Django</h1>
-        <ol>
-            {ol}
-        </ol>
-        {articleTag}
-        <a href="/create/">create</a>
-    </body>
+        <body>
+            <h1>Django</h1>
+            <ol>
+                {ol}
+            </ol>
+            {articleTag}
+            <ul>
+                <li><a href="/create/">create</a></li>
+                {deleteUI}
+            </ul>
+        </body>
     </html>
     """
     return htmltext
@@ -65,4 +78,20 @@ def read(request, id):
     for topic in topics:
         if topic['id'] == int(id):
             article = f'<h2>{topic["title"]}</h2>{topic["body"]}'
-    return HttpResponse(HTMLTemplate(article))
+    return HttpResponse(HTMLTemplate(article, id))
+
+@csrf_exempt
+def delete(request):
+    global topics
+    if request.method == 'POST':
+        id = int(request.POST['id']) # get id from POST
+        print(id)
+        # del topics[id] # delete topics[id] -> INDEX로 하는게 아니라 id로 하는것임
+        # directory로 id가 설정되어있기 때문에, 다시 다 돌아서 새로 만들어주는 수 밖에 없다.
+        newTopics = []
+        for topic in topics:
+            if topic['id'] != id:
+                newTopics.append(topic)
+        topics = newTopics
+    return redirect("/")
+        
