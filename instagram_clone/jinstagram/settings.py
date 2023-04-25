@@ -14,7 +14,12 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# print("1: {}".format(os.path.abspath(__file__)))
+# print("2: {}".format(os.path.dirname(os.path.abspath(__file__))))
+# print("3: {}".format(BASE_DIR))
 
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -55,7 +60,7 @@ ROOT_URLCONF = 'jinstagram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["../myapp/templates/"],
+        'DIRS': [os.path.join(BASE_DIR, 'myapp/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +124,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# STATIC_DIRS = [
+#     os.path.join(BASE_DIR, 'myapp/static'),
+# ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'myapp/static')
+
+# STATICFILES_URL = '/static/'
+STATICFILES_DIRS = []
+# STATICFILES_ROOT = os.path.join(BASE_DIR, 'myapp/static')
+
