@@ -59,7 +59,7 @@
       }
 
       .left_body{
-        background-color: skyblue; 
+        /* background-color: skyblue;  */
         width: 500px;
         height: 2000px; 
         margin-right: 100px; 
@@ -68,7 +68,7 @@
       }
 
       .right_body{
-        background-color: yellow; 
+        /* background-color: yellow;  */
         width: 300px; 
         height: 1000px; 
         left: 72%; 
@@ -79,13 +79,25 @@
       .feed_box{
         background-color: white;
         width: 480px;
+        /* height: 480px; */
         margin: 10px;
-        height: 480px;
+
+        border: none;
       }
 
       .feed_img{
         width: inherit;
         height: 300px;
+      }
+
+      .feed_footer{
+        padding: 0px 7px 15px;
+      }
+
+      .form-control{
+        border: none;
+        margin: 0;
+        padding: 0;
       }
 
       .feed_icon{
@@ -94,7 +106,7 @@
       }
 
       .feed_name{
-        padding: 10px 0;
+        padding: 10px;
         display: flex;
         align-items: center;
       }
@@ -106,10 +118,10 @@
 
       .feed_name_id{
         font-size: 14px;
-        padding: 0px 10px;
+        padding-left: 10px;
         font-weight: bold;
       }
-
+    
       .feed_name_info{
         font-size: 8px;
         padding: 0px 10px;
@@ -179,7 +191,7 @@
     <div class = "main_body" style="background-color: ##000000;">
       <div class="left_body">
         
-        <div class="border feed_box">
+        <div class="feed_box">
 
           <div class="feed_name">
             <div class="profile_box">
@@ -188,7 +200,7 @@
             <span class="feed_name_id"> itzy.all.in.us </span>
           </div>
           <img class="feed_img" src="https://pbs.twimg.com/media/FqYFetEaAAAkldt.jpg:large">
-          <div class="feed_contents">
+          <div class="feed_footer">
             <div class="feed_icon">
               <div>
                 <span class="material-symbols-outlined">favorite</span>
@@ -202,12 +214,23 @@
             <div class="feed_like">
               <p>좋아요 526,145개</p>
             </div>
-            <div class="feed_content">
-              <p class="feed_txt">itzy.all.in.us 올인어스~ 안녕하세요 잇지입니당~</p>
+            <div class="feed_post">
+              <p class="feed_txt">
+                <span class="feed_name_id">itzy.all.in.us</span> 
+                올인어스~ 안녕하세요 잇지입니당~
+              </p>
             </div>
-            <div class="feed_reply">
-              <p class="feed_txt">midzy1 너무 예뻐요!</p>             
+            <div class="feed_comment">
+              <p class="feed_txt">
+                <span class="feed_name_id">midzy</span> 
+                너무 멋있어용~
+              </p>
+              <p class="feed_txt">
+                <span class="feed_name_id">k_s_w_1110</span> 
+                내 군생활의 힘,,
+              </p>
             </div>
+            <input type="text" class="form-control" placeholder="댓글을 입력해주세요.." aria-label="Recipient's username" aria-describedby="button-addon2">
           </div>
         </div>
         <div class="border feed_box">contents2</div>
