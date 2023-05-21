@@ -166,9 +166,8 @@
       </style> 
   </head>
   <body>
-     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="width: 100%; height: 50px; position: fixed;">
         <div class="container-fluid" style="min-width:1000px;">
@@ -187,19 +186,17 @@
         </div>
         
     </nav>
-    
-    <div class = "main_body" style="background-color: ##000000;">
+    <div class = "main_body" style="background-color: #ffffff;">
       <div class="left_body">
-        
+        {% for feed in feeds %}
         <div class="feed_box">
-
           <div class="feed_name">
             <div class="profile_box">
-              <img class="profile_img" src="data:image/png;base64,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">
+              <img class="profile_img" src="{{feed.user_image}}">
             </div>
-            <span class="feed_name_id"> itzy.all.in.us </span>
+            <span class="feed_name_id"> {{feed.user_id}}</span>
           </div>
-          <img class="feed_img" src="https://pbs.twimg.com/media/FqYFetEaAAAkldt.jpg:large">
+          <img class="feed_img" src="{{feed.content_image}}">
           <div class="feed_footer">
             <div class="feed_icon">
               <div>
@@ -212,12 +209,12 @@
               </div>
             </div>
             <div class="feed_like">
-              <p>좋아요 526,145개</p>
+              <p>좋아요 {{feed.like_count}}개</p>
             </div>
             <div class="feed_post">
               <p class="feed_txt">
-                <span class="feed_name_id">itzy.all.in.us</span> 
-                올인어스~ 안녕하세요 잇지입니당~
+                <span class="feed_name_id">{{feed.user_id}}</span> 
+                {{feed.content_text}}
               </p>
             </div>
             <div class="feed_comment">
@@ -233,10 +230,7 @@
             <input type="text" class="form-control" placeholder="댓글을 입력해주세요.." aria-label="Recipient's username" aria-describedby="button-addon2">
           </div>
         </div>
-        <div class="border feed_box">contents2</div>
-        <div class="border feed_box">contents3</div>
-        <div class="border feed_box">contents4</div>
-        <div class="border feed_box">contents5</div>
+        {% endfor %}
       </div>
       
       <div class="right_body">
@@ -258,31 +252,20 @@
           <span style="font-weight: bold; font-size: 10px;"> 모두 보기 </span>
         </div>
         
-        
+        {% for recommend in recommends %}
         <div class="user_block">
           <div class="feed_name">
             <div class="profile_box">
               <img class="profile_img" src="data:image/png;base64,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">
             </div>
             <div class="feed_name_txt">
-              <span class="feed_name_id"> itzy.all.in.us </span>
-              <span class="feed_name_info"> ITZY official </span>  
+              <span class="feed_name_id"> {{ recommend.user_id }} </span>
+              <span class="feed_name_info">{{ recommend.user_info }}</span>  
             </div>
           </div>
           <a href="#" class="jump">전환</a>
         </div>
-        <div class="user_block">
-          <div class="feed_name">
-            <div class="profile_box">
-              <img class="profile_img" src="data:image/png;base64,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">
-            </div>
-            <div class="feed_name_txt">
-              <span class="feed_name_id"> itzy.all.in.us </span>
-              <span class="feed_name_info"> ITZY official </span>  
-            </div>
-          </div>
-          <a href="#" class="jump">전환</a>
-        </div>
+        {% endfor %}
       </div>
     </div>
 </body>
