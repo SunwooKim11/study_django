@@ -161,14 +161,160 @@
       .jump{
         color: blue;
         font-weight: bold;
+        /* float: right; */
       }       
+
+      #first_modal, #second_modal {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+      }
+
+      #modal_window {
+          background: white;
+          backdrop-filter: blur(13.5px);
+          -webkit-backdrop-filter: blur(13.5px);
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          width: 800px;
+          height: 600px;
+          position: relative;
+          padding: 10px;
+      }
+
+      #image_dragover{
+        background-color: green;
+        width: 750px;
+        height: 500px;
+      }
+
+      #image_space{
+        background-color: green;
+        outline: 2px dashed #92b0b3 ;
+        outline-offset:-10px;  
+        text-align: center;
+        transition: all .15s ease-in-out;
+        height: 400px;
+      }
 
       </style> 
   </head>
   <body>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">      
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+    <script>
+      $(function(){
+        $("#nav_bar_add_box").click(function() { 
+          console.log("click"); 
+          $("#first_modal").css("display", "flex");
+          $('body').css("overflow", "hidden");
+          $('.right_body').css("display", "none");
+        });
+
+        $("#modal_close").click(function() { 
+          console.log("close"); 
+          $("#first_modal").css("display", "none");
+          $("#second_modal").css("display", "none");
+          $('body').css("overflow", "visible");
+          $('.right_body').css("display", "block");
+        });
+        
+        $('#image_space')
+          .on("dragover", dragOver)
+          .on("dragleave", dragOver)
+          .on("drop", uploadFiles);
+        
+        function dragOver(e){
+          e.stopPropagation();
+          e.preventDefault();
+
+          $("#image_space").text("");
+          
+          if (e.type == "dragover") {
+              $(e.target).css({
+                  "background-color": "black",
+                  "outline-offset": "-20px"
+              });
+          } else {
+              $(e.target).css({
+                  "background-color": "gray",
+                  "outline-offset": "-10px"
+              });
+          }
+        }
+        
+        function uploadFiles(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          dragOver(e); //1
+          
+          e.dataTransfer = e.originalEvent.dataTransfer; //2
+          var files = e.target.files || e.dataTransfer.files;
+          
+          console.log(files);
+
+          if (files.length > 1) {
+              alert('하나만 올려라.');
+              return;
+          }
+
+          if (files[0].type.match(/image.*/)) {
+            $("#first_modal").css("display", "none");
+            $("#second_modal").css("display", "flex");
+
+            $(image_space).css({
+              "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
+              "outline": "none",
+              "background-size": "100% 100%"
+            });
+        } else {
+          alert('이미지가 아닙니다.');
+          return;
+        }
+      }
+        
+
+      });
+    </script>
+    <div id="first_modal">
+      <div id="modal_window">
+        <div style = "display: flex; justify-content: space-between;">
+          <div style="width : 24px; background-color: yellow;">&nbsp</div>
+          <div>새 게시물 만들기</div>
+          <div style="background-color: yellow;"><span class="material-symbols-outlined" id="modal_close">close</span></div>  
+        </div>
+        <div id="image_space" style="width: 700px;">사진/동영상을 붙여넣으세요</div>
+      </div>
+    </div>
+
+    <div id="second_modal">
+      <div id="modal_window">
+        <div style = "display: flex; justify-content: space-between;">
+          <div style="width : 24px; background-color: yellow;">&nbsp</div>
+          <div>새 게시물 만들기</div>
+          <div style="background-color: yellow;"><span class="material-symbols-outlined" id="modal_close">close</span></div>  
+        </div>
+        <div style="display: flex;  justify-content: center; ">
+          <div id="image_space" style="width: 500px;"></div>
+          <div>
+            <textarea name="" id="" cols="30" rows="10" style="width: 100%"></textarea>
+            <button type="button" class="btn  btn-primary" style="width: 100%">Share</button>              
+          </div>
+        </div>
+      </div>
+    </div>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="width: 100%; height: 50px; position: fixed;">
         <div class="container-fluid" style="min-width:1000px;">
           <a class="navbar-brand" href="#">
@@ -176,10 +322,10 @@
           </a>
         
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width:400px">
-          <div>
+          <div class="nav_bar">
             <span class="material-symbols-rounded">home</span>
             <span class="material-symbols-rounded">send</span>
-            <span class="material-symbols-outlined">add_box</span>
+            <span id ="nav_bar_add_box" class="material-symbols-outlined">add_box</span>
             <span class="material-symbols-outlined">explore</span>
             <span class="material-symbols-outlined">favorite_border</span>
           </div>

@@ -15,7 +15,7 @@ class Feed(models.Model):
 class Recommend(models.Model):
     user_id = models.TextField()
     user_info = models.TextField()
-    user_image = models.TextField()
+    
 
     def contents(self):
-        return [self.user_id, self.user_info, self.user_image]
+        return [self.user_id, self.user_info]
