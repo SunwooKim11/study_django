@@ -205,7 +205,7 @@
         transition: all .15s ease-in-out;
         height: 400px;
       }
-
+      
       </style> 
   </head>
   <body>
@@ -215,6 +215,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
     <script>
       $(function(){
+        let files
+
         $("#nav_bar_add_box").click(function() { 
           console.log("click"); 
           $("#first_modal").css("display", "flex");
@@ -260,7 +262,7 @@
           dragOver(e); //1
           
           e.dataTransfer = e.originalEvent.dataTransfer; //2
-          var files = e.target.files || e.dataTransfer.files;
+          files = e.target.files || e.dataTransfer.files;
           
           console.log(files);
 
@@ -278,12 +280,51 @@
               "outline": "none",
               "background-size": "100% 100%"
             });
-        } else {
-          alert('이미지가 아닙니다.');
-          return;
+          } else {
+            alert('이미지가 아닙니다.');
+            return;
+          }
         }
-      }
-        
+      
+          $('#feed_create_button').click(function(){
+          alert('공유하기 눌렀다.');
+
+          let file = files;  
+          let image_name = files[0].name;
+          let content = $('#input_feed_text').val();
+          let user_id = "itzy.all.in.us";
+          let profile_image = "data:image/png;base64,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";
+          
+          let fd = new FormData();
+
+          fd.append('file', file);
+          fd.append('image_name', image_name);
+          fd.append('content', content);
+          fd.append('user_id', user_id);
+          fd.append('profile_image', profile_image);
+
+          $.ajax({
+            url: "/content/upload",
+            data: fd,
+            method: "POST",
+            
+            enctype: "multipart/form-data", //form data 설정
+            processData: false, //프로세스 데이터 설정 : false 값을 해야 form data로 인식합니다
+            contentType: false, //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식합니다
+            
+            success: function (data){
+              console.log("성공");
+            },
+            error: function (request, status, error){
+              console.log('에러');
+            },
+            complete: function(){
+              console.log('완료');
+            }
+            
+          })
+
+        });
 
       });
     </script>
@@ -308,8 +349,8 @@
         <div style="display: flex;  justify-content: center; ">
           <div id="image_space" style="width: 500px;"></div>
           <div>
-            <textarea name="" id="" cols="30" rows="10" style="width: 100%"></textarea>
-            <button type="button" class="btn  btn-primary" style="width: 100%">Share</button>              
+            <textarea name="" id="input_feed_text" cols="30" rows="10" style="width: 100%"></textarea>
+            <button type="button" id="feed_create_button" class="btn  btn-primary" style="width: 100%">Share</button>              
           </div>
         </div>
       </div>
